@@ -33,7 +33,9 @@
       "react/jsx-props-no-spreading": "off",
       "no-unused-expressions": "off",
       "@typescript-eslint/ban-types": "off",
+      "@typescript-eslint/no-explicit-any": "off",
       "max-len": "off",
+      "no-console": "off",
       "react/prop-types": "off",
       "import/extensions": [
         "error",
