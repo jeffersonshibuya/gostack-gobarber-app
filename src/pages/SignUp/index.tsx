@@ -18,6 +18,7 @@ import logoImg from '../../assets/logo.png';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import getValidationErrors from '../../utils/getValidationErrors';
+import api from '../../services/api';
 
 import {
   Container, Title, BackToSignIn, BackToSignInText,
@@ -50,11 +51,11 @@ const SignUp: React.FC = () => {
         });
         await schema.validate(data, { abortEarly: false });
 
-        // await signIn({ email: data.email, password: data.password });
+        await api.post('/users', data);
 
         Alert.alert('Sucesso', 'Cadastro efetuado com sucesso');
 
-        // history.push('/dashboard');
+        navigation.goBack();
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -65,7 +66,7 @@ const SignUp: React.FC = () => {
         Alert.alert('Erro no cadastro', 'Erro ao tentar cadastrar nova conta');
       }
     },
-    [],
+    [navigation],
   );
 
   return (
