@@ -21,8 +21,12 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import { useAuth } from '../../hooks/auth';
 
 import {
-  Container, Title, ForgotPassword, ForgotPasswordText,
-  CreateAccountButton, CreateAccountButtonText,
+  Container,
+  Title,
+  ForgotPassword,
+  ForgotPasswordText,
+  CreateAccountButton,
+  CreateAccountButtonText,
 } from './styles';
 
 interface SigninFormData {
@@ -51,8 +55,6 @@ const SignIn: React.FC = () => {
         await schema.validate(data, { abortEarly: false });
 
         await signIn({ email: data.email, password: data.password });
-
-        Alert.alert('', 'Login efetuado com sucesso');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -63,7 +65,7 @@ const SignIn: React.FC = () => {
         Alert.alert('Erro na autenticação', 'Erro ao tentar realizar login');
       }
     },
-    [],
+    [signIn],
   );
 
   return (
@@ -73,7 +75,10 @@ const SignIn: React.FC = () => {
         enabled
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={{ flex: 1 }}>
+        <ScrollView
+          keyboardShouldPersistTaps="handled"
+          contentContainerStyle={{ flex: 1 }}
+        >
           <Container>
             <Image source={logoImg} />
             <View>
@@ -89,7 +94,9 @@ const SignIn: React.FC = () => {
                 icon="mail"
                 placeholder="E-mail"
                 returnKeyType="next"
-                onSubmitEditing={() => { passwordInputRef.current?.focus(); }}
+                onSubmitEditing={() => {
+                  passwordInputRef.current?.focus();
+                }}
               />
               <Input
                 ref={passwordInputRef}

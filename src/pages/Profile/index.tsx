@@ -37,7 +37,7 @@ interface ProfileFormData {
 }
 
 const Profile: React.FC = () => {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, signOut } = useAuth();
   const navigation = useNavigation();
 
   const formRef = useRef<FormHandles>(null);
@@ -119,6 +119,11 @@ const Profile: React.FC = () => {
   const handleGoBack = useCallback(() => {
     navigation.goBack();
   }, [navigation]);
+
+  const handleSignOut = useCallback(async () => {
+    await signOut();
+    navigation.navigate('SignIn');
+  }, [navigation, signOut]);
 
   const handleUpdateAvatar = useCallback(() => {
     ImagePicker.showImagePicker(
@@ -245,6 +250,8 @@ const Profile: React.FC = () => {
               <Button onPress={() => formRef.current?.submitForm()}>
                 Confirmar mudanças
               </Button>
+
+              <Button onPress={handleSignOut}>Sair</Button>
             </Form>
           </Container>
         </ScrollView>
