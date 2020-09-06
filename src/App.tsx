@@ -4,6 +4,7 @@ import SplashScreen from 'react-native-splash-screen';
 import React, { useEffect } from 'react';
 import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import codePush from 'react-native-code-push';
 
 import AppProvider from './hooks';
 
@@ -32,4 +33,6 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+})(App);
